@@ -12,8 +12,7 @@ namespace app
                         "~/Scripts/jquery-{version}.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/jquerysignalr").Include(
-                        "~/Scripts/jquery.signalR-{version}.js",
-                        "~/signalr/hubs"));
+                        "~/Scripts/jquery.signalR-{version}.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
