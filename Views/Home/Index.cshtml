@@ -1,1 +1,24 @@
 ﻿
+<div class="container">
+    <input type="text" id="lat" value="500" />
+    <input type="text" id="lng" value="501" />
+    <input type="button" id="send" value="Send" />
+    <ul id="discussion"></ul>
+</div>
+
+@section scripts
+{
+ $(function () {
+        var hub = $.connection.geo;
+
+        hub.client.MultiCast = function (lat, lng) {
+            $('#discussion').append('<li>Latitude:&nbsp;' + lat + '&nbsp;&nbsp;&nbsp;Longitude:&nbsp;' + lng + '</li>');
+        };
+
+        $.connection.hub.start().done(function () {
+            $('#send').click(function () {
+                hub.server.myLocation($('#lat').val(), $('#lng').val());
+            });
+        });
+    });
+}
