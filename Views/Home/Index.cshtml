@@ -46,6 +46,8 @@
 
         function SetItems(lat, lng){
             var output = document.getElementById("out");
+            output.innerHTML = '';
+
             var img = new Image();
             img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=13&size=300x300&sensor=false";
 
