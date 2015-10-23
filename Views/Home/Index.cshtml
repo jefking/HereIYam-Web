@@ -1,9 +1,8 @@
 ﻿
-<div id="out" class="jumbotron text-center">Loading</div>
+<div id="map" class="jumbotron text-center">Loading</div>
 
 <div class="container">
-    <input type="button" id="send" value="Send" />
-    <ul id="discussion"></ul>
+    <input type="button" id="send" value="Here!" class="btn btn-default" />
 </div>
 
 @section scripts
@@ -28,17 +27,22 @@
         }
 
         function SetItems(lat, lng){
-            var output = document.getElementById("out");
-            output.innerHTML = '';
+            var myLatlng = new google.maps.LatLng(lat, lng);
+            var mapOptions = {
+              zoom: 13,
+              center: myLatlng
+            }
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-            var img = new Image();
-            img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=13&size=640x480&sensor=false";
+            var marker = new google.maps.Marker({
+                position: myLatlng
+            });
 
-            output.appendChild(img);
+            marker.setMap(map);
         }
 
         hub.client.MultiCast = function (lat, lng) {
-            $('#discussion').append('<li>Latitude:&nbsp;' + lat + '&nbsp;&nbsp;&nbsp;Longitude:&nbsp;' + lng + '</li>');
+            SetItems(lat, lng)
         };
 
         $.connection.hub.start().done(function () {
