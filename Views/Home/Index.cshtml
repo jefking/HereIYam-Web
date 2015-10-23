@@ -10,7 +10,7 @@
 
 @section scripts
 {
-    $(function() {
+    @*$(function() {
         var output = document.getElementById("out");
 
         var latitude = 666;
@@ -24,8 +24,38 @@
 
         var lattxt = document.getElementById("lattxt").value = latitude;
         var longtxt = document.getElementById("lngtxt").value = longitude;
+    });*@
+    $(function() {
+
+        var Geo={};
+
+        if (navigator.geolocation) {
+           navigator.geolocation.getCurrentPosition(success, error);
+        }
+
+        //Get the latitude and the longitude;
+        function success(position) {
+            Geo.lat = position.coords.latitude;
+            Geo.lng = position.coords.longitude;
+            SetItems(Geo.lat, Geo.lng);
+        }
+
+        function error(){
+            console.log("Geocoder failed");
+        }
+
+        function SetItems(lat, lng){
+            var output = document.getElementById("out");
+            var img = new Image();
+            img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=13&size=300x300&sensor=false";
+
+            output.appendChild(img);
+
+            $('#lattxt').html(lat);
+            $('#lngtxt').html(lng);
+        }
+
     });
-    
 
     $(function () {
         var hub = $.connection.geo;
