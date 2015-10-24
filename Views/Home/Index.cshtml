@@ -1,9 +1,6 @@
 ﻿
 <div id="map" class="carousel">Loading</div>
-
-<div class="container">
-    <input type="button" id="send" value="Here!" class="btn btn-default" />
-</div>
+<input type="button" id="send" value="Here!" class="btn btn-default" />
 
 @section scripts
 {
@@ -27,18 +24,23 @@
         }
 
         function SetItems(lat, lng){
-            var myLatlng = new google.maps.LatLng(lat, lng);
+            var myLatlng =  new Microsoft.Maps.Location(lat, lng);
+            
             var mapOptions = {
-              zoom: 13,
-              center: myLatlng
+                credentials: "AoMnnR3fGh3C9c46bdXzjxm4Kr5LsDA7_OI31XrRVz5j0LnY5qufMtXNvXw3zj7j",
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                center: myLatlng,
+                zoom: 15
             }
-            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            var map = new Microsoft.Maps.Map(document.getElementById("map"), mapOptions);
+
+            @*var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
             var marker = new google.maps.Marker({
                 position: myLatlng
             });
 
-            marker.setMap(map);
+            marker.setMap(map);*@
         }
 
         hub.client.MultiCast = function (lat, lng) {
