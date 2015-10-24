@@ -1,8 +1,14 @@
-﻿html,body{
-      color: #5a5a5a;
-      height: 100%;
-      width: 100%;
-      min-height: 100%;
+﻿html, body {
+    color: #5a5a5a;
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
 }
-.carousel,.item,.active{height:100%;}
-.carousel-inner{height:100%;}
+
+.carousel, .item, .active {
+    height: 100%;
+}
+
+.carousel-inner {
+    height: 100%;
+}
