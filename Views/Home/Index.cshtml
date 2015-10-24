@@ -34,13 +34,11 @@
             }
             var map = new Microsoft.Maps.Map(document.getElementById("map"), mapOptions);
 
-            @*var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            var center = map.getCenter();
 
-            var marker = new google.maps.Marker({
-                position: myLatlng
-            });
-
-            marker.setMap(map);*@
+            // Add a pin to the center of the map
+            var pin = new Microsoft.Maps.Pushpin(center, {text: 'Me'});
+            map.entities.push(pin);
         }
 
         hub.client.MultiCast = function (lat, lng) {
