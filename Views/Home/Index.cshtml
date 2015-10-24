@@ -8,6 +8,7 @@
     $(function() {
         var hub = $.connection.geo;
         var Geo={};
+        var map;
 
         if (navigator.geolocation) {
            navigator.geolocation.getCurrentPosition(success, error);
@@ -17,6 +18,15 @@
         function success(position) {
             Geo.lat = position.coords.latitude;
             Geo.lng = position.coords.longitude;
+
+            var mapOptions = {
+                credentials: "AoMnnR3fGh3C9c46bdXzjxm4Kr5LsDA7_OI31XrRVz5j0LnY5qufMtXNvXw3zj7j",
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                center: new Microsoft.Maps.Location(Geo.lat, Geo.lng),
+                zoom: 15
+            }
+            map = new Microsoft.Maps.Map(document.getElementById("map"), mapOptions);
+
             SetItems(Geo.lat, Geo.lng);
         }
 
@@ -25,20 +35,8 @@
         }
 
         function SetItems(lat, lng){
-            var myLatlng =  new Microsoft.Maps.Location(lat, lng);
-            
-            var mapOptions = {
-                credentials: "AoMnnR3fGh3C9c46bdXzjxm4Kr5LsDA7_OI31XrRVz5j0LnY5qufMtXNvXw3zj7j",
-                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
-                center: myLatlng,
-                zoom: 15
-            }
-            var map = new Microsoft.Maps.Map(document.getElementById("map"), mapOptions);
-
-            var center = map.getCenter();
-
             // Add a pin to the center of the map
-            var pin = new Microsoft.Maps.Pushpin(center, {text: 'Me'});
+            var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(lat, lng), {text: 'Me'});
             map.entities.push(pin);
         }
 
