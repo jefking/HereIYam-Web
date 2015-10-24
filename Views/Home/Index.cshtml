@@ -19,29 +19,26 @@
             Geo.lat = position.coords.latitude;
             Geo.lng = position.coords.longitude;
 
+            var here = new Microsoft.Maps.Location(Geo.lat, Geo.lng);
             var mapOptions = {
                 credentials: "AoMnnR3fGh3C9c46bdXzjxm4Kr5LsDA7_OI31XrRVz5j0LnY5qufMtXNvXw3zj7j",
                 mapTypeId: Microsoft.Maps.MapTypeId.aerial,
-                center: new Microsoft.Maps.Location(Geo.lat, Geo.lng),
+                center: here,
                 zoom: 15
             }
             map = new Microsoft.Maps.Map(document.getElementById("map"), mapOptions);
 
-            SetItems(Geo.lat, Geo.lng);
+            var pin = new Microsoft.Maps.Pushpin(here, {text: 'Me'});
+            map.entities.push(pin);
         }
 
         function error(){
             console.log("Geocoder failed");
         }
-
-        function SetItems(lat, lng){
-            // Add a pin to the center of the map
-            var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(lat, lng), {text: 'Me'});
-            map.entities.push(pin);
-        }
-
+    
         hub.client.MultiCast = function (lat, lng) {
-            SetItems(lat, lng)
+            var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(lat, lng), {text: '?'});
+            map.entities.push(pin);
         };
 
         $.connection.hub.start().done(function () {
