@@ -7,6 +7,7 @@
 {
     $(function() {
         var hub = $.connection.geo;
+        var Geo={};
         var map;
 
         if (navigator.geolocation) {
@@ -15,10 +16,10 @@
 
         //Get the latitude and the longitude;
         function success(position) {
-            var lat = position.coords.latitude;
-            var lng = position.coords.longitude;
+            Geo.lat = position.coords.latitude;
+            Geo.lng = position.coords.longitude;
 
-            var here = new Microsoft.Maps.Location(lat, lng);
+            var here = new Microsoft.Maps.Location(Geo.lat, Geo.lng);
             var mapOptions = {
                 credentials: "AoMnnR3fGh3C9c46bdXzjxm4Kr5LsDA7_OI31XrRVz5j0LnY5qufMtXNvXw3zj7j",
                 mapTypeId: Microsoft.Maps.MapTypeId.aerial,
