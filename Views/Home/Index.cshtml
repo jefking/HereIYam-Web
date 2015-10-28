@@ -1,6 +1,6 @@
 ﻿
 <input type="button" id="send" value="Here!" class="btn btn-default container" />
-
+<input type="text" id="notification" value="Yam" />
 <div id="map" class="carousel">Loading</div>
 
 @section scripts
@@ -27,24 +27,30 @@
                 showScalebar: false,
                 zoom: 16
             }
+            
             map = new Microsoft.Maps.Map(document.getElementById("map"), mapOptions);
-
-            var pin = new Microsoft.Maps.Pushpin(here, {text: 'Me'});
-            map.entities.push(pin);
         }
 
         function error(){
             console.log("Geocoder failed");
         }
     
-        hub.client.MultiCast = function (lat, lng) {
-            var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(lat, lng), {text: '?'});
+        hub.client.MultiCast = function (lat, lng, notification) {
+            notification = notification != null && notification !== undefined ? notification : '';
+
+            var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(lat, lng), {text: notification});
             map.entities.push(pin);
         };
 
         $.connection.hub.start().done(function () {
+            //Send Login
+            hub.server.myLocation(Geo.lat, Geo.lng, 'Yam');
+
             $('#send').click(function () {
-                hub.server.myLocation(Geo.lat, Geo.lng);
+                var notification = document.getElementById("notification").value;
+
+                notification = notification != null && notification !== undefined ? notification : '';
+                hub.server.myLocation(Geo.lat, Geo.lng, notification);
             });
         });
     });
