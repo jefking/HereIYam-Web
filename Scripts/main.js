@@ -7,7 +7,6 @@
         navigator.geolocation.getCurrentPosition(success, error);
     }
 
-    //Get the latitude and the longitude;
     function success(position) {
         Geo.lat = position.coords.latitude;
         Geo.lng = position.coords.longitude;
@@ -36,7 +35,6 @@
     };
 
     $.connection.hub.start().done(function () {
-        //Send Login
         hub.server.myLocation(Geo.lat, Geo.lng, 'Yam');
 
         $('#send').click(function () {
